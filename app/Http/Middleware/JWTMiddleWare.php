@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use JWTAuth;
 
+use Illuminate\Http\Request;
+
 class JWTMiddleWare
 {
     /**
@@ -14,6 +16,10 @@ class JWTMiddleWare
      * @param  \Closure  $next
      * @return mixed
      */
+    // public function handle($request, Closure $next)
+    // {
+    //     return $next($request);
+    // }
 
     public function handle(Request $request, Closure $next)
     {
@@ -22,3 +28,4 @@ class JWTMiddleWare
         return $next($request);
     }
 }
+
