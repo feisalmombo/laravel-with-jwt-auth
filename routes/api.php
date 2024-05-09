@@ -27,6 +27,14 @@ Route::post('/login', [
     UserController::class, 'login'
 ]);
 
+Route::post('/logout', [
+    UserController::class, 'logout'
+]);
+
+Route::post('/refresh', [
+    UserController::class, 'refresh'
+]);
+
 Route::get('/user', [
     UserController::class, 'getUser'
 ])->middleware('auth.jwt');
