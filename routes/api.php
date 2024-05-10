@@ -30,3 +30,10 @@ Route::post('/refresh', [UserController::class, 'refresh']);
 Route::get('/user', [UserController::class, 'getUser'])->middleware('auth.jwt');
 
 
+Route::any('{any}', function(){
+    return response()->json([
+    	'status' => 'error',
+        'message' => 'Resource not found'], 404);
+})->where('any', '.*');
+
+
