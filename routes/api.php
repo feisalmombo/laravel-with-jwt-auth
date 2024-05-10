@@ -26,15 +26,11 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/refresh', [UserController::class, 'refresh']);
 Route::get('/user', [UserController::class, 'getUser'])->middleware('auth.jwt');
 
-
-// Route::controller(TodoController::class)->group(function () {
-//     Route::get('/todos', 'index');
-//     Route::post('/todo', 'store');
-//     Route::get('/todo/{id}', 'show');
-//     Route::put('/todo/{id}', 'update');
-//     Route::delete('/todo/{id}', 'destroy');
-// });
 Route::get('/todos', [TodoController::class, 'index']);
+Route::post('/todo', [TodoController::class, 'store']);
+Route::get('/todo/{id}', [TodoController::class, 'show']);
+Route::put('/todo/{id}', [TodoController::class, 'update']);
+Route::delete('/todo/{id}', [TodoController::class, 'destroy']);
 
 
 Route::any('{any}', function(){
