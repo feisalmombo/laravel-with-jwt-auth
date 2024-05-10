@@ -19,24 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register', [
-    UserController::class, 'register'
-]);
+Route::post('/register', [UserController::class, 'register']);
 
-Route::post('/login', [
-    UserController::class, 'login'
-]);
+Route::post('/login', [UserController::class, 'login']);
 
-Route::post('/logout', [
-    UserController::class, 'logout'
-]);
+Route::post('/logout', [UserController::class, 'logout']);
 
-Route::post('/refresh', [
-    UserController::class, 'refresh'
-]);
+Route::post('/refresh', [UserController::class, 'refresh']);
 
-Route::get('/user', [
-    UserController::class, 'getUser'
-])->middleware('auth.jwt');
+Route::get('/user', [UserController::class, 'getUser'])->middleware('auth.jwt');
 
 
