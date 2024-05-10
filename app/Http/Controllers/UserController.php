@@ -11,6 +11,12 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
 {
+    public function getUser()
+    {
+        $user = auth('api')->user();
+        return response()->json(['user'=>$user], 201);
+    }
+
     public function register(Request $request)
     {
         $this->validate($request, [
@@ -55,13 +61,6 @@ class UserController extends Controller
         return response()->json([
             'token' => $token
         ], 200);
-    }
-
-
-    public function getUser()
-    {
-        $user = auth('api')->user();
-        return response()->json(['user'=>$user], 201);
     }
 
     public function logout()
