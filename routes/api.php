@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\UserController;
+use App\Http\Controllers\TodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +21,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/register', [UserController::class, 'register']);
-
 Route::post('/login', [UserController::class, 'login']);
-
 Route::post('/logout', [UserController::class, 'logout']);
-
 Route::post('/refresh', [UserController::class, 'refresh']);
-
 Route::get('/user', [UserController::class, 'getUser'])->middleware('auth.jwt');
+
+
+Route::controller(TodoController::class)->group(function () {
+    Route::get('/todos', 'index');
+    Route::post('/todo', 'store');
+    Route::get('/todo/{id}', 'show');
+    Route::put('/todo/{id}', 'update');
+    Route::delete('/todo/{id}', 'destroy');
+});
 
 
 Route::any('{any}', function(){
