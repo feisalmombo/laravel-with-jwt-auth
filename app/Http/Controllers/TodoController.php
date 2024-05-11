@@ -112,22 +112,42 @@ class TodoController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'title' => 'required|string|max:255',
-        //     'description' => 'required|string|max:255',
-        // ]);
+        $validattor = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
 
-        // $todo = Todo::find($id);
-        // $todo->title = $request->title;
-        // $todo->description = $request->description;
-        // $todo->save();
+        if($validattor->fails()) {
 
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Todo updated successfully',
-        //     'todo' => $todo,
-        // ]);
+            return response()->json([
+                'status' => 422,
+                'errors' => $validattor->messages()
+            ], 422);
 
+        }else {
+
+            $todo = Todo::find($id);
+
+            if($todo) {
+
+                $todo->update([
+                    'title' => $request->title,
+                    'description' => $request->description,
+                ]);
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => "Todo Updated Successfully"
+                ], 200);
+
+            }else {
+
+                return response()->json([
+                    'status' => 404,
+                    'message' => "No Such Todo Found!"
+                ], 404);
+            }
+        }
 
     }
 
