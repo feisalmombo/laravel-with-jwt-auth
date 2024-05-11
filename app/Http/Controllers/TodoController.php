@@ -154,12 +154,23 @@ class TodoController extends Controller
     public function destroy($id)
     {
         $todo = Todo::find($id);
-        $todo->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Todo deleted successfully',
-            'todo' => $todo,
-        ]);
+        if($todo) {
+
+            $todo->delete();
+
+            return response()->json([
+                'status' => 200,
+                'message' => "Todo Deleted Successfully"
+            ], 200);
+
+        }else {
+
+            return response()->json([
+                'status' => 404,
+                'message' => "No Such Todo Found!"
+            ], 404);
+
+        }
     }
 }
