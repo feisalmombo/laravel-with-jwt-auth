@@ -29,6 +29,7 @@ Route::get('/user', [UserController::class, 'getUser'])->middleware('auth.jwt');
 Route::get('/todos', [TodoController::class, 'index']);
 Route::post('/todo', [TodoController::class, 'store']);
 Route::get('/todo/{id}', [TodoController::class, 'show']);
+Route::get('todo/{id}/edit', [TodoController::class, 'edit']);
 Route::put('/todo/{id}', [TodoController::class, 'update']);
 Route::delete('/todo/{id}', [TodoController::class, 'destroy']);
 

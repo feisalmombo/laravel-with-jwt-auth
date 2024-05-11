@@ -90,23 +90,45 @@ class TodoController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $todo = Todo::find($id);
+
+        if($todo) {
+            return response()->json([
+                'status' => 200,
+                'todo' => $todo
+            ], 200);
+
+        }else {
+
+            return response()->json([
+                'status' => 404,
+                'message' => "No Such Todo Found!"
+            ], 404);
+
+        }
+    }
+
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     'description' => 'required|string|max:255',
+        // ]);
 
-        $todo = Todo::find($id);
-        $todo->title = $request->title;
-        $todo->description = $request->description;
-        $todo->save();
+        // $todo = Todo::find($id);
+        // $todo->title = $request->title;
+        // $todo->description = $request->description;
+        // $todo->save();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Todo updated successfully',
-            'todo' => $todo,
-        ]);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Todo updated successfully',
+        //     'todo' => $todo,
+        // ]);
+
+
     }
 
     public function destroy($id)
