@@ -45,10 +45,20 @@ class TodoController extends Controller
     {
         $todo = Todo::find($id);
 
-        return response()->json([
-            'status' => 'success',
-            'todo' => $todo,
-        ]);
+        if($todo) {
+            return response()->json([
+                'status' => 200,
+                'todo' => $todo
+            ], 200);
+
+        }else {
+
+            return response()->json([
+                'status' => 404,
+                'message' => "No Such Todo Found!"
+            ], 404);
+
+        }
     }
 
     public function update(Request $request, $id)
