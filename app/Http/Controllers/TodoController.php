@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use Illuminate\Support\Facades\Validator;
 
 class TodoController extends Controller
 {
@@ -33,21 +34,40 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validattor = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
         ]);
 
-        $todo = Todo::create([
-            'title' => $request->title,
-            'description' => $request->description,
-        ]);
+        if($validattor->fails()) {
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Todo created successfully',
-            'todo' => $todo,
-        ]);
+            return response()->json([
+                'status' => 422,
+                'errors' => $validattor->messages()
+            ], 422);
+
+        }else {
+
+            $todo = Todo::create([
+                'title' => $request->title,
+                'description' => $request->description,
+            ]);
+
+            if($todo) {
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => "Todo created successfully"
+                ], 200);
+
+            }else {
+
+                return response()->json([
+                    'status' => 500,
+                    'message' => "Something Went Wrong"
+                ], 500);
+            }
+        }
     }
 
     public function show($id)
