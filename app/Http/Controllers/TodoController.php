@@ -16,10 +16,19 @@ class TodoController extends Controller
     {
         $todos = Todo::all();
 
-        return response()->json([
-            'status' => 'success',
-            'todos' => $todos,
-        ]);
+        if($todos->count() > 0){
+
+            return response()->json([
+                'status' => 200,
+                'todos' => $todos
+            ], 200);
+
+        }else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Records Found'
+            ], 404);
+        }
     }
 
     public function store(Request $request)
