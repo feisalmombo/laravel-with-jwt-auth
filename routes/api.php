@@ -34,11 +34,11 @@ Route::get('todo/{id}/edit', [TodoController::class, 'edit']);
 Route::put('/todo/{id}', [TodoController::class, 'update']);
 Route::delete('/todo/{id}', [TodoController::class, 'destroy']);
 
-Route::post('product-add', [CategoryController::class, 'store']);
+Route::post('/product-add', [CategoryController::class, 'store']);
 
 
 Route::middleware('auth:api')->group( function () {
-    Route::resource('category', CategoryController::class);
+    Route::resource('/category', CategoryController::class);
 });
 
 
