@@ -36,12 +36,9 @@ Route::delete('/todo/{id}', [TodoController::class, 'destroy']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
-
-
-
-// Route::middleware('auth:api')->group( function () {
-//     Route::resource('/category', CategoryController::class);
-// });
+Route::get('/category/{id}', [CategoryController::class, 'show']);
+Route::put('/category/{Category}', [CategoryController::class, 'update']);
+Route::delete('/category/{Category}', [CategoryController::class, 'destroy']);
 
 
 Route::any('{any}', function(){
