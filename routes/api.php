@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\UserController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\API\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,13 @@ Route::get('/todo/{id}', [TodoController::class, 'show']);
 Route::get('todo/{id}/edit', [TodoController::class, 'edit']);
 Route::put('/todo/{id}', [TodoController::class, 'update']);
 Route::delete('/todo/{id}', [TodoController::class, 'destroy']);
+
+Route::post('product-add', [CategoryController::class, 'store']);
+
+
+Route::middleware('auth:api')->group( function () {
+    Route::resource('category', CategoryController::class);
+});
 
 
 Route::any('{any}', function(){
